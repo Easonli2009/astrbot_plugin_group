@@ -1,16 +1,11 @@
 from astrbot.api.all import *
 
-@register("helloworld", "Your Name", "一个简单的 Hello World 插件", "1.0.0")
+@register("helloworld", "Soulter", "一个简单的 Hello World 插件", "1.0.0")
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
     
-    # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
-    @filter.command("helloworld")
+    @command("helloworld") # from astrbot.api.event.filter import command
     async def helloworld(self, event: AstrMessageEvent):
         user_name = event.get_sender_name()
-        yield event.plain_result(f"Hello, {user_name}!") # 发送一条纯文本消息
-    
-    @event_message_type(EventMessageType.PRIVATE_MESSAGE)
-    async def on_private_message(self, event: AstrMessageEvent):
-        yield event.plain_result("收到了一条私聊消息。")
+        yield event.plain_result(f"Hello, {user_name}!")
