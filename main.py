@@ -7,4 +7,8 @@ class MyPlugin(Star):
     
     @event_message_type(EventMessageType.PRIVATE_MESSAGE) #过滤私聊消息
     async def on_private_message(self, event: AstrMessageEvent):
-        yield event.plain_result("我不理你！😤")
+        yield event.plain_result("我不理你！")
+    
+    @event_message_type(EventMessageType.PRIVATE_MESSAGE) #过滤群聊消息
+    async def on_private_message(self, event: AstrMessageEvent):
+        yield event.plain_result("我不理你！！")
