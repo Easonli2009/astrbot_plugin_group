@@ -1,5 +1,4 @@
-from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
-from astrbot.api.star import Context, Star, register
+from astrbot.api.all import *
 
 @register("helloworld", "Your Name", "一个简单的 Hello World 插件", "1.0.0")
 class MyPlugin(Star):
@@ -11,3 +10,7 @@ class MyPlugin(Star):
     async def helloworld(self, event: AstrMessageEvent):
         user_name = event.get_sender_name()
         yield event.plain_result(f"Hello, {user_name}!") # 发送一条纯文本消息
+    
+    @event_message_type(EventMessageType.PRIVATE_MESSAGE)
+    async def on_private_message(self, event: AstrMessageEvent):
+        yield event.plain_result("收到了一条私聊消息。")
