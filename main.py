@@ -9,6 +9,6 @@ class MyPlugin(Star):
     async def on_private_message(self, event: AstrMessageEvent):
         yield event.plain_result("我不理你！")
     
-    @event_message_type(EventMessageType.PRIVATE_MESSAGE) #过滤群聊消息
+    @event_message_type(EventMessageType.GROUP_MESSAGE) #过滤群聊消息
     async def on_private_message(self, event: AstrMessageEvent):
         yield event.plain_result("我不理你！！")
