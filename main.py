@@ -4,11 +4,8 @@ from astrbot.api.all import *
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
-    
-    @event_message_type(EventMessageType.PRIVATE_MESSAGE) #过滤私聊消息
-    async def on_private_message(self, event: AstrMessageEvent):
-        yield event.plain_result("我不理你！")
-    
-    @event_message_type(EventMessageType.GROUP_MESSAGE) #过滤群聊消息
-    async def on_private_message(self, event: AstrMessageEvent):
-        yield event.plain_result("我不理你！！")
+
+    @filter.event_message_type(filter.EventMessageType.All)
+    async def on_message_(self, event: AstrMessageEvent):
+        #接收所有类型的消息
+        print(event.message_str)
