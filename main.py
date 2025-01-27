@@ -14,5 +14,7 @@ class MyPlugin(Star):
         group_id=event.get_group_id()
         print("#group id="+group_id)
         global dc
+        if group_id not in dc:
+            dc[group_id]=0
         dc[group_id] = int(dc.get(group_id))+1
         print(a)
