@@ -1,6 +1,8 @@
 from astrbot.api.all import *
 
-@register("Group Helper!", "Lyz09", "我的插件", "1.0.2")
+a=0
+
+@register("group", "Lyz09", "我的插件", "1.0.2")
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
@@ -9,3 +11,5 @@ class MyPlugin(Star):
     async def on_message(self, event: AstrMessageEvent):
         print("#Debug Message: ")
         print(event.message_obj.raw_message) # 打印消息内容
+        a = a+1
+        print(a)
