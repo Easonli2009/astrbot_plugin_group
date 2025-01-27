@@ -1,6 +1,6 @@
 from astrbot.api.all import *
 
-a=0
+dc = dict(test="Test")
 
 @register("group", "Lyz09", "我的插件", "1.0.2")
 class MyPlugin(Star):
@@ -14,3 +14,4 @@ class MyPlugin(Star):
         global a
         a = a+1
         print(a)
+        print("#group id="+event.get_group_id())
