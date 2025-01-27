@@ -11,7 +11,8 @@ class MyPlugin(Star):
     async def on_message(self, event: AstrMessageEvent):
         print("#Debug Message: ")
         print(event.message_obj.raw_message) # 打印消息内容
-        global a
-        a = a+1
+        group_id=event.get_group_id()
+        print("#group id="+group_id)
+        global dc
+        dc[group_id] = dc.get(group_id)+1
         print(a)
-        print("#group id="+event.get_group_id())
