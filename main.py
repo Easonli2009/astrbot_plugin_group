@@ -11,5 +11,6 @@ class MyPlugin(Star):
     async def on_message(self, event: AstrMessageEvent):
         print("#Debug Message: ")
         print(event.message_obj.raw_message) # 打印消息内容
+        global a
         a = a+1
         print(a)
