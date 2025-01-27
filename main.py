@@ -7,4 +7,4 @@ class MyPlugin(Star):
 
     @event_message_type(EventMessageType.ALL) # 注册一个过滤器，参见下文。
     async def on_message(self, event: AstrMessageEvent):
-        print(event.message_obj.raw_message) # 打印消息内容
+        print("Debug Message:"+event.message_obj.raw_message) # 打印消息内容
