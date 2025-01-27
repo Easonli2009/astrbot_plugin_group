@@ -5,7 +5,6 @@ class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
 
-    @filter.event_message_type(filter.EventMessageType.All)
-    async def on_message_(self, event: AstrMessageEvent):
-        #接收所有类型的消息
-        print(event.message_str)
+    @event_message_type(EventMessageType.ALL) # 注册一个过滤器，参见下文。
+    async def on_message(self, event: AstrMessageEvent):
+        print(event.message_obj.raw_message) # 打印消息内容
