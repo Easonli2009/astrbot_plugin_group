@@ -2,7 +2,7 @@ from astrbot.api.all import *
 
 dc = dict(test="Test")
 
-@register("group", "Lyz09", "我的插件", "v1.0.2")
+@register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
