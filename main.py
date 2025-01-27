@@ -14,5 +14,5 @@ class MyPlugin(Star):
         group_id=event.get_group_id()
         print("#group id="+group_id)
         global dc
-        dc[group_id] = dc.get(group_id)+1
+        dc[group_id] = int(dc.get(group_id))+1
         print(a)
