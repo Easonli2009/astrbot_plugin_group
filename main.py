@@ -17,4 +17,4 @@ class MyPlugin(Star):
         if group_id not in dc:
             dc[group_id]=0
         dc[group_id] = int(dc.get(group_id))+1
-        print(a)
+        print(dc[group_id])
