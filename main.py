@@ -25,6 +25,7 @@ class MyPlugin(Star):
         if group_id not in dc:
             dc[group_id]=random.randint(2,7)
         dc[group_id] = int(dc.get(group_id))-1
+        print(dc[group_id])
         if dc[group_id]<=0:
             dc[group_id]=random.randint(2,7)
             provider = self.context.get_using_provider()
