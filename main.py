@@ -2,8 +2,8 @@ from astrbot.api.all import *
 import random
 
 class chat_history:
-    def __init__(sth : str):
-        self.history = [sth]
+    def __init__():
+        self.history = ["qwq"]
         del self.history[0]
     def add(sth : str):
         self.history.append(sth)
@@ -31,8 +31,10 @@ class MyPlugin(Star):
         if group_id not in dc:
             dc[group_id] = random.randint(2,7)
         if group_id not in his:
-            his[group_id] = chat_history("default")
+            his[group_id] = chat_history()
         dc[group_id] = int(dc.get(group_id)) - 1
+        his[group_id].add("["+str(event.message_obj.sender.nickname)+"(QQid:"+str(event.message_obj.sender.user_id)+")]: "+str(event.get_message_outline()))
+        print("add message:"+"["+str(event.message_obj.sender.nickname)+"(QQid:"+str(event.message_obj.sender.user_id)+")]: "+str(event.get_message_outline()))
         print(dc[group_id])
         if dc[group_id] <= 0:
             dc[group_id] = random.randint(2,7)
