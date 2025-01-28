@@ -30,6 +30,6 @@ class MyPlugin(Star):
             provider = self.context.get_using_provider()
             if provider:
                 prompt_en="You are currently in a chat room. Based on the chat history, identify the topic that the chat room is currently focused on and respond to that topic with your own answer. Note: You do not need to directly answer the topic you identified. Your response should blend in with the atmosphere of the chat room and should be as conversational as possible. Do not add any embellishments to your answer."
-                response = await provider.text_chat(prompt=prompt_en, session_id=event.session_id,contexts=None)
+                response = await provider.text_chat(prompt=prompt_en, session_id=event.session_id)
                 print(response.completion_text) # LLM 返回的结果
                 yield event.plain_result(response.completion_text) # 发送一条纯文本消息
