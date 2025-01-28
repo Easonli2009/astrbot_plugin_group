@@ -17,7 +17,8 @@ class MyPlugin(Star):
         print("#group id="+group_id)
         print("#sender.id="+str(event.message_obj.sender.user_id))
         print("#sender.nickname="+str(event.message_obj.sender.nickname))
-        print("#sender.time="+str(event.message_obj.timestamp))
+        print("#time="+str(event.message_obj.timestamp))
+        print("#message="+str(event.message_obj.message))
         global dc
         if group_id not in dc:
             dc[group_id]=random.randint(2,7)
