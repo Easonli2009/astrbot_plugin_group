@@ -52,7 +52,7 @@ class MyPlugin(Star):
             if provider:
                 prompt_empty = " "
                 prom = his[group_id].get_all()
-                prom = prom + "以上是你所在的群聊的历史聊天记录，你是其中的“草莓鲜奶(id:514641773)”，根据这些内容推测群聊内的成员正在围绕讨论的话题，并围绕着这个话题接话。注意：无需为此回答添加任何额外形容词。注意不要过度重复一个内容。"
+                prom = prom + "以上是你所在的群聊的历史聊天记录，你是其中的“草莓鲜奶(id:514641773)”，根据这些内容推测群聊内的成员正在围绕讨论的话题，并围绕着这个话题接话。由于你可能在此之前回答过，因此你应当关心的是你的最后一次发言之后的内容。注意：你不应当回答推测围绕话题的过程。无需为此回答添加任何额外形容词。注意不要过度重复一个内容。"
                 # response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
                 response = await provider.text_chat(prompt = prom , session_id = None)
                 print(response.completion_text) # LLM 返回的结果
