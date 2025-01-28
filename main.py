@@ -40,7 +40,7 @@ class MyPlugin(Star):
         dc[group_id] = int(dc.get(group_id)) - 1
         his[group_id].add("["+str(event.message_obj.sender.nickname)+"(QQid:"+str(event.message_obj.sender.user_id)+")]: "+str(event.get_message_outline()))
         print("add message:"+"["+str(event.message_obj.sender.nickname)+"(QQid:"+str(event.message_obj.sender.user_id)+")]: "+str(event.get_message_outline()))
-        print("all message:"+his[group_id].getall())
+        print("all message:"+his[group_id].get_all())
         print(dc[group_id])
         if dc[group_id] <= 0:
             dc[group_id] = random.randint(2,7)
