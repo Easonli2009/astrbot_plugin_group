@@ -5,7 +5,7 @@ class chat_history:
     def __init__(self):
         self.history = ["qwq"]
         del self.history[0]
-    def add(sth : str):
+    def add(self , sth : str):
         self.history.append(sth)
 
 dc = dict(test="Test")
