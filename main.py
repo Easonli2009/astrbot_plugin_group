@@ -46,7 +46,7 @@ class MyPlugin(Star):
         print("add message:" + add_str)
         print("all message:" + his[group_id].get_all())
         print(dc[group_id])
-        if dc[group_id] <= 0:
+        if dc[group_id] <= 0 or event.is_wake_up():
             dc[group_id] = random.randint(2,7)
             provider = self.context.get_using_provider()
             if provider:
@@ -61,3 +61,4 @@ class MyPlugin(Star):
                 print("add message self:" + add_str_new)
                 his[group_id].add(add_str_new)
                 yield event.plain_result(response.completion_text) # 发送一条纯文本消息
+                event.is_wake = False
