@@ -26,6 +26,7 @@ class MyPlugin(Star):
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):
+        event.stop_event() # 停止事件传播
         # print("#Debug Message: ")
         # print(event.message_obj.raw_message) # 打印消息内容
         group_id=event.get_group_id()
@@ -70,4 +71,3 @@ class MyPlugin(Star):
                     his[group_id].add(add_str_new)
                     yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                     count_send = count_send + 1
-        event.stop_event() # 停止事件传播
