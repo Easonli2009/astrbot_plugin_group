@@ -37,7 +37,7 @@ class MyPlugin(Star):
         print("#message_real=" + str(event.get_message_outline()))
         global dc
         if group_id not in dc:
-            dc[group_id] = random.randint(2,7)
+            dc[group_id] = random.randint(3,8)
         if group_id not in his:
             his[group_id] = chat_history()
         dc[group_id] = int(dc.get(group_id)) - 1
@@ -62,3 +62,4 @@ class MyPlugin(Star):
                 his[group_id].add(add_str_new)
                 yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                 event.is_wake = False
+        event.stop_event() # 停止事件传播
