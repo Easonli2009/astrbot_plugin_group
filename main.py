@@ -50,6 +50,7 @@ class MyPlugin(Star):
         print(dc[group_id])
         global count_recv
         global count_send
+        print("recv and send:" , count_recv , count_send)
         if count_recv == count_send:
             if dc[group_id] <= 0 or event.is_at_or_wake_command:
                 dc[group_id] = random.randint(3,8)
