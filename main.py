@@ -1,11 +1,33 @@
-# 注册插件的装饰器
-@register("helloworld", "Your Name", "一个简单的 Hello World 插件", "1.0.0")
+from astrbot.api.all import *
+
+dc = dict(test="Test")
+
+@register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
-    
-    # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
-    @filter.command("helloworld")
-    async def helloworld(self, event: AstrMessageEvent):
-        user_name = event.get_sender_name()
-        yield event.plain_result(f"Hello, {user_name}!") # 发送一条纯文本消息
+
+    @command("test")
+    async def test(self, event: AstrMessageEvent):
+        provider = self.context.get_using_provider()
+        if provider:
+            response = await provider.text_chat("你好", session_id=event.session_id)
+            print(response.completion_text) # LLM 返回的结果
+
+    @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
+    async def on_message(self, event: AstrMessageEvent):
+        print("#Debug Message: ")
+        print(event.message_obj.raw_message) # 打印消息内容
+        group_id=event.get_group_id()
+        print("#group id="+group_id)
+        global dc
+        if group_id not in dc:
+            dc[group_id]=0
+        dc[group_id] = int(dc.get(group_id))+1
+        print(dc[group_id])
+        if dc[group_id]>=2:
+            dc[group_id]=0
+            provider = self.context.get_using_provider()
+            if provider:
+                response = await provider.text_chat("请你回答一句最能迎合上述消息的话语，你的回答中无需添加任何修饰词。", session_id=event.session_id)
+                print(response.completion_text) # LLM 返回的结果
