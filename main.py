@@ -23,11 +23,11 @@ class MyPlugin(Star):
         print("#group id="+group_id)
         global dc
         if group_id not in dc:
-            dc[group_id]=random.random(2,7)
+            dc[group_id]=random.randint(2,7)
         dc[group_id] = int(dc.get(group_id))-1
         print(dc[group_id])
         if dc[group_id]<=0:
-            dc[group_id]=random.random(2,7)
+            dc[group_id]=random.randint(2,7)
             provider = self.context.get_using_provider()
             if provider:
                 response = await provider.text_chat("请你回答一句最能迎合上述消息的话语，你的回答中无需添加任何修饰词。", session_id=event.session_id)
