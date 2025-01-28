@@ -48,7 +48,7 @@ class MyPlugin(Star):
         print(dc[group_id])
         if dc[group_id] <= 0 or event.is_wake_up():
             if event.is_wake_up():
-                print("Wake up!")
+                print("Wake up! & " , str(event.is_wake))
             dc[group_id] = random.randint(2,7)
             provider = self.context.get_using_provider()
             if provider:
