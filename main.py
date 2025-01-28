@@ -15,6 +15,9 @@ class MyPlugin(Star):
         print(event.message_obj.raw_message) # 打印消息内容
         group_id=event.get_group_id()
         print("#group id="+group_id)
+        print("#sender.id="+str(event.message_obj.sender.user_id))
+        print("#sender.nickname="+str(event.message_obj.sender.nickname))
+        print("#sender.time="+str(event.message_obj.timestamp))
         global dc
         if group_id not in dc:
             dc[group_id]=random.randint(2,7)
