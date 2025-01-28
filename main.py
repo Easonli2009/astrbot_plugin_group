@@ -61,5 +61,5 @@ class MyPlugin(Star):
                 print("add message self:" + add_str_new)
                 his[group_id].add(add_str_new)
                 yield event.plain_result(response.completion_text) # 发送一条纯文本消息
-                event.is_wake = False
+                event.stop_event() # 停止事件传播
         event.stop_event() # 停止事件传播
