@@ -25,9 +25,10 @@ class MyPlugin(Star):
             dc[group_id]=0
         dc[group_id] = int(dc.get(group_id))+1
         print(dc[group_id])
-        if dc[group_id]>=2:
+        if dc[group_id]>=6:
             dc[group_id]=0
             provider = self.context.get_using_provider()
             if provider:
                 response = await provider.text_chat("请你回答一句最能迎合上述消息的话语，你的回答中无需添加任何修饰词。", session_id=event.session_id)
                 print(response.completion_text) # LLM 返回的结果
+                yield event.plain_result(response.completion_text) # 发送一条纯文本消息
