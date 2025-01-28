@@ -2,11 +2,11 @@ from astrbot.api.all import *
 import random
 
 class chat_history:
-    def __init__(qwq : string):
-        self.history = [qwq]
+    def __init__(sth : str):
+        self.history = [sth]
         del self.history[0]
-    def add(str : string):
-        self.history.append(str)
+    def add(sth : str):
+        self.history.append(sth)
 
 dc = dict(test="Test")
 his = dict(test="Test")
