@@ -32,7 +32,7 @@ class MyPlugin(Star):
         print("#sender.nickname=" + str(event.message_obj.sender.nickname))
         print("#time=" + str(event.message_obj.timestamp))
         real_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(event.message_obj.timestamp))
-        print("当前时间：", real_time)
+        print("#real_time=" + real_time)
         print("#message=" + str(event.message_obj.message))
         print("#message_real=" + str(event.get_message_outline()))
         global dc
@@ -41,9 +41,9 @@ class MyPlugin(Star):
         if group_id not in his:
             his[group_id] = chat_history()
         dc[group_id] = int(dc.get(group_id)) - 1
-        his[group_id].add("["+str(event.message_obj.sender.nickname)+"(id:"+str(event.message_obj.sender.user_id)+")]: "+str(event.get_message_outline()))
-        print("add message:"+"["+str(event.message_obj.sender.nickname)+"(id:"+str(event.message_obj.sender.user_id)+")]: "+str(event.get_message_outline()))
-        print("all message:"+his[group_id].get_all())
+        his[group_id].add(real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline()))
+        print("add message:" + real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline()))
+        print("all message:" + his[group_id].get_all())
         print(dc[group_id])
         if dc[group_id] <= 0:
             dc[group_id] = random.randint(2,7)
