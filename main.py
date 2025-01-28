@@ -41,8 +41,9 @@ class MyPlugin(Star):
         if group_id not in his:
             his[group_id] = chat_history()
         dc[group_id] = int(dc.get(group_id)) - 1
-        his[group_id].add(real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline()))
-        print("add message:" + real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline()))
+        add_str = real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline())
+        his[group_id].add(add_str)
+        print("add message:" + add_str)
         print("all message:" + his[group_id].get_all())
         print(dc[group_id])
         if dc[group_id] <= 0:
@@ -50,8 +51,13 @@ class MyPlugin(Star):
             provider = self.context.get_using_provider()
             if provider:
                 prompt_empty = " "
-                # prom = his[group_id].get_all()
-                # prom = prom + "以上是你所在的群聊的历史聊天记录，根据次"
-                response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
+                prom = his[group_id].get_all()
+                prom = prom + "以上是你所在的群聊的历史聊天记录，你是其中的“草莓鲜奶(id:514641773)”，根据这些内容推测群聊内的成员正在围绕讨论的话题，并围绕着这个话题接话。注意：无需为此回答添加任何额外形容词。注意不要过度重复一个内容。"
+                # response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
+                response = await provider.text_chat(prompt = prom)
                 print(response.completion_text) # LLM 返回的结果
+                real_time_new = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(int(time.time())))
+                add_str_new = real_time_new + " ["+str("草莓鲜奶") + "(id:"+str(514641773) + ")]: " + str(response.completion_text)
+                print("add message self:" + add_str_new)
+                his[group_id].add(add_str_new)
                 yield event.plain_result(response.completion_text) # 发送一条纯文本消息
