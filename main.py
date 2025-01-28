@@ -8,7 +8,7 @@ class chat_history:
         del self.history[0]
     def add(self , sth : str):
         self.history.append(sth)
-        while self.history.count > 50:
+        while len(self.history) > 50:
             del self.history[0]
     def get_all(self):
         result = ""
