@@ -1,5 +1,6 @@
 from astrbot.api.all import *
 import random
+import time
 
 class chat_history:
     def __init__(self):
