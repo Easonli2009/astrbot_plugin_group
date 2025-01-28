@@ -70,4 +70,4 @@ class MyPlugin(Star):
                     his[group_id].add(add_str_new)
                     yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                     count_send = count_send + 1
-                    # event.stop_event() # 停止事件传播
+        event.stop_event() # 停止事件传播
