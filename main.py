@@ -1,8 +1,9 @@
 from astrbot.api.all import *
 import random
 import time
+import json
 
-MAX_HISTORY_COUNT = 100
+MAX_HISTORY_COUNT = 5000
 
 class chat_history:
     def __init__(self):
@@ -26,15 +27,26 @@ class chat_history:
             del self.history[0]
 
 
-dc = dict(test="Test")
-his = dict(test="Test")
+dc = dict()
+his = dict()
 count_recv = 0
 count_send = 0
+
+def save_config():
+    info_json = json.dumps(his, sort_keys = False, indent = 4, separators = (",", ":"))
+    file_save = open("group_config.json", "w")
+    file_save.write(info_json)
+
+def read_config():
+    file_read = open("group_config.json", "r")
+    global his
+    his = json.load(file_read)
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
     def __init__(self, context : Context):
         super().__init__(context)
+        read_config()
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):
@@ -56,7 +68,7 @@ class MyPlugin(Star):
         if group_id not in his:
             his[group_id] = chat_history()
         dc[group_id] = int(dc.get(group_id)) - 1
-        add_str = real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline())
+        add_str = real_time + " ["+str(event.message_obj.sender.nickname) + "("+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline())
         his[group_id].add(add_str)
         print("add message:" + add_str)
         dbg_msg_1 , dbg_msg_2 = his[group_id].get_all()
@@ -85,5 +97,6 @@ class MyPlugin(Star):
                     print("add message self:" + add_str_new)
                     his[group_id].add(add_str_new)
                     his[group_id].refresh()
+                    save_config()
                     yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                     count_send = count_send + 1
