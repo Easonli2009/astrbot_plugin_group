@@ -58,7 +58,7 @@ def read_config():
         file_read = open("group_config.json", "r")
         global his
         his = json.load(file_read)
-        str_dbg_1, str_dbg_2 = his[964746347].getall()
+        str_dbg_1, str_dbg_2 = his["964746347"].getall()
         print("#dbg1:", str_dbg_1)
         print("#dbg2:", str_dbg_2)
 
