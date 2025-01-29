@@ -11,8 +11,8 @@ class MyEncoder(json.JSONEncoder):
             return int(obj)
         if isinstance(obj, float):
             return float(obj)
-#        if ininstance(obj, chat_history):
-#              
+        if isinstance(obj, chat_history):
+             return obj.__dict__
         return super(MyEncoder, self).default(obj)
 
 MAX_HISTORY_COUNT = 5000
