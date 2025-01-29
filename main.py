@@ -34,7 +34,7 @@ count_send = 0
 readed_config = 0
 
 def save_config():
-    info_json = json.dumps(his, sort_keys = False, indent = 4)
+    info_json = json.dumps(his.__dict__, sort_keys = False, indent = 4)
     file_save = open("group_config.json", "w")
     file_save.write(info_json)
 
@@ -105,3 +105,4 @@ class MyPlugin(Star):
                     save_config()
                     yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                     count_send = count_send + 1
+        return
