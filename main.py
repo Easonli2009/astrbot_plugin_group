@@ -59,7 +59,8 @@ class MyPlugin(Star):
         add_str = real_time + " ["+str(event.message_obj.sender.nickname) + "(id:"+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline())
         his[group_id].add(add_str)
         print("add message:" + add_str)
-        print("all message:" + his[group_id].get_all())
+        dbg_msg_1 , dbg_msg_2 = his[group_id].get_all()
+        print("all message:" , dbg_msg_1 , dbg_msg_2)
         print(dc[group_id])
         global count_recv
         global count_send
