@@ -34,7 +34,7 @@ count_send = 0
 readed_config = 0
 
 def save_config():
-    info_json = json.dumps(his, sort_keys = False, indent = 4, separators = (",", ":"))
+    info_json = json.dumps(his, sort_keys = False, indent = 4)
     file_save = open("group_config.json", "w")
     file_save.write(info_json)
 
