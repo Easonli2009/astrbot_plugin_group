@@ -52,6 +52,7 @@ def save_config():
 
 def read_config():
     print("Function: read_config")
+    global readed_config
     readed_config = 1
     if os.path.exists("group_config.json") == True:
         file_read = open("group_config.json", "r")
