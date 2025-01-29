@@ -3,6 +3,18 @@ import random
 import time
 import json
 
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, bytes):
+            return str(obj, encoding="utf-8")
+        if isinstance(obj, int):
+            return int(obj)
+        if isinstance(obj, float):
+            return float(obj)
+#        if ininstance(obj, chat_history):
+#              
+        return super(MyEncoder, self).default(obj)
+
 MAX_HISTORY_COUNT = 5000
 
 class chat_history:
@@ -34,7 +46,7 @@ count_send = 0
 readed_config = 0
 
 def save_config():
-    info_json = json.dumps(his.__dict__, sort_keys = False, indent = 4)
+    info_json = json.dumps(his, cls = MyEncoder, sort_keys = False, indent = 4)
     file_save = open("group_config.json", "w")
     file_save.write(info_json)
 
