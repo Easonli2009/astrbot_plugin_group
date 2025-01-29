@@ -31,6 +31,7 @@ dc = dict()
 his = dict()
 count_recv = 0
 count_send = 0
+readed_config = 0
 
 def save_config():
     info_json = json.dumps(his, sort_keys = False, indent = 4, separators = (",", ":"))
@@ -38,6 +39,7 @@ def save_config():
     file_save.write(info_json)
 
 def read_config():
+    readed_config = 1
     file_read = open("group_config.json", "r")
     global his
     his = json.load(file_read)
@@ -50,7 +52,9 @@ class MyPlugin(Star):
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):
-        event.stop_event() # 停止事件传播（最新版会报错！！）
+        event.stop_event() # 停止事件传播，疑似有bug
+        if readed_config == 0:
+            read_config()
         # print("#Debug Message: ")
         # print(event.message_obj.raw_message) # 打印消息内容
         group_id=event.get_group_id()
@@ -97,6 +101,6 @@ class MyPlugin(Star):
                     print("add message self:" + add_str_new)
                     his[group_id].add(add_str_new)
                     his[group_id].refresh()
-                    # save_config()
+                    save_config()
                     yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                     count_send = count_send + 1
