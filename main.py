@@ -40,9 +40,10 @@ def save_config():
 
 def read_config():
     readed_config = 1
-    file_read = open("group_config.json", "r")
-    global his
-    his = json.load(file_read)
+    if os.path.exists("group_config.json") == True:
+        file_read = open("group_config.json", "r")
+        global his
+        his = json.load(file_read)
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
