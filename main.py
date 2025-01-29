@@ -46,11 +46,11 @@ def read_config():
 class MyPlugin(Star):
     def __init__(self, context : Context):
         super().__init__(context)
-        read_config()
+        # read_config()
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):
-        # event.stop_event() # 停止事件传播（最新版会报错！！）
+        event.stop_event() # 停止事件传播（最新版会报错！！）
         # print("#Debug Message: ")
         # print(event.message_obj.raw_message) # 打印消息内容
         group_id=event.get_group_id()
@@ -97,6 +97,6 @@ class MyPlugin(Star):
                     print("add message self:" + add_str_new)
                     his[group_id].add(add_str_new)
                     his[group_id].refresh()
-                    save_config()
+                    # save_config()
                     yield event.plain_result(response.completion_text) # 发送一条纯文本消息
                     count_send = count_send + 1
