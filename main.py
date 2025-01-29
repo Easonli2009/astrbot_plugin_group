@@ -51,11 +51,15 @@ def save_config():
     file_save.write(info_json)
 
 def read_config():
+    print("Function: read_config")
     readed_config = 1
     if os.path.exists("group_config.json") == True:
         file_read = open("group_config.json", "r")
         global his
         his = json.load(file_read)
+        str_dbg_1, str_dbg_2 = his[964746347].getall()
+        print("#dbg1:", str_dbg_1)
+        print("#dbg2:", str_dbg_2)
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
