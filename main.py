@@ -82,7 +82,7 @@ class MyPlugin(Star):
         global dc
         if group_id not in dc:
             dc[group_id] = random.randint(3,8)
-        if group_id not in his:
+        if group_id not in his or not isinstance(his[group_id], chat_history):
             his[group_id] = chat_history()
         dc[group_id] = int(dc.get(group_id)) - 1
         add_str = real_time + " ["+str(event.message_obj.sender.nickname) + "("+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline())
