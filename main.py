@@ -81,7 +81,7 @@ class MyPlugin(Star):
         self.config = config
         print(self.config)
     
-    @filter.command("test")
+    @command("test")
     async def test(self, event: AstrMessageEvent):
         from aiocqhttp import CQHttp
         if event.get_message_type() == MessageType.GROUP_MESSAGE:
