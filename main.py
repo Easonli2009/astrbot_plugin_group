@@ -65,6 +65,9 @@ def read_config():
         his = json.load(file_read)
         tmp_his = []
         for key, value in his.items():
+            print("pair of key & value:")
+            print("#key = ", key)
+            print("#value = ",value)
             new_value = chat_history()
             new_value = new_value.new_obj(value)
             tmp_his[key] = new_value
