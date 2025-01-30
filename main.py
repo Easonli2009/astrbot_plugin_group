@@ -113,31 +113,36 @@ class MyPlugin(Star):
         global count_send
         print("recv and send:" , count_recv , count_send)
         is_failed = 1
-        if count_recv == count_send:
-            if dc[group_id] <= 0 or event.is_at_or_wake_command:
-                dc[group_id] = random.randint(3,8)
-                provider = self.context.get_using_provider()
-                if provider:
-                    is_failed = 0
-                    count_recv = count_recv + 1
-                    prompt_empty = " "
-                    his_old , his_new = his[group_id].get_all()
-                    his_all = "以下是旧聊天记录：\n------\n" + his_old + "------\n"
-                    his_all = his_all + "以下是新聊天记录：\n------\n" + his_new + "------\n"
-                    prom = his_all + "你是一个群聊内的成员，以上是你所在的群聊的聊天记录，你是其中的“草莓鲜奶(id:514641773)”，根据新聊天记录回答你要在群聊内发表的言论，旧聊天记录用于获取聊天背景，尤其关注At你的消息。注意：无需为此回答添加任何额外形容词，无需模拟给出的消息格式。"
-                    sys_prompt = "你是一名中国广东省广州市的18岁女生，对他人自称“小玲”，你的网名叫“草莓鲜奶”，你没有除了QQ以外的其他平台的账号，现在仍在进行学业。你比较喜欢英语，你的数学和物理不是很好。你的性格较为内向、温和、可爱，一次回答不会暴露自己较多的信息，语气一般较为平淡。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你可以适当模仿他人的说话风格。你不能让他人发现你是AI，如果有他人向你询问这一方面的话题，请回避。你的每一次回答都要体现上述要求，请牢记！！！"
-                    # response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
-                    response = await provider.text_chat(prompt = prom , session_id = None , system_prompt = sys_prompt)
-                    print(response.completion_text) # LLM 返回的结果
-                    real_time_new = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(int(time.time())))
-                    add_str_new = real_time_new + " ["+str("草莓鲜奶") + "(id:"+str(514641773) + ")]: " + str(response.completion_text)
-                    print("add message self:" + add_str_new)
-                    his[group_id].add(add_str_new)
-                    his[group_id].refresh()
-                    save_config()
-                    yield event.plain_result(str(response.completion_text)) # 发送一条纯文本消息
-                    count_send = count_send + 1
+        if dc[group_id] <= 0 and count_send == count_recv or event.is_at_or_wake_command:
+            dc[group_id] = 2147483647
+            provider = self.context.get_using_provider()
+            if provider:
+                is_failed = 0
         if is_failed == 1:
             global failed_count
             failed_count = failed_count + 1
             yield failed_count
+        else:
+            count_recv = count_recv + 1
+            this_id = count_recv
+            while count_send < this_id - 1:
+                time.sleep(0.1)
+            prompt_empty = " "
+            his_old , his_new = his[group_id].get_all()
+            his_all = "以下是旧聊天记录：\n------\n" + his_old + "------\n"
+            his_all = his_all + "以下是新聊天记录：\n------\n" + his_new + "------\n"
+            prom = his_all + "你是一个群聊内的成员，以上是你所在的群聊的聊天记录，你是其中的“草莓鲜奶(id:514641773)”，根据新聊天记录回答你要在群聊内发表的言论，旧聊天记录用于获取聊天背景，尤其关注At你的消息。注意：无需为此回答添加任何额外形容词，无需模拟给出的消息格式。"
+            sys_prompt = "你是一名中国广东省广州市的18岁女生，对他人自称“小玲”，你的网名叫“草莓鲜奶”，你没有除了QQ以外的其他平台的账号，现在仍在进行学业。你比较喜欢英语，你的数学和物理不是很好。你的性格较为内向、温和、可爱，一次回答不会暴露自己较多的信息，语气一般较为平淡。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你可以适当模仿他人的说话风格。你不能让他人发现你是AI，如果有他人向你询问这一方面的话题，请回避。你的每一次回答都要体现上述要求，请牢记！！！"
+            # response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
+            response = await provider.text_chat(prompt = prom , session_id = None , system_prompt = sys_prompt)
+            print(response.completion_text) # LLM 返回的结果
+            real_time_new = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(int(time.time())))
+            add_str_new = real_time_new + " ["+str("草莓鲜奶") + "(id:"+str(514641773) + ")]: " + str(response.completion_text)
+            print("add message self:" + add_str_new)
+            his[group_id].add(add_str_new)
+            his[group_id].refresh()
+            save_config()
+            yield event.plain_result(str(response.completion_text)) # 发送一条纯文本消息
+            dc[group_id] = random.randint(3,8)
+            count_send = count_send + 1
+            
