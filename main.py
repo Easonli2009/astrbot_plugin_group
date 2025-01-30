@@ -49,6 +49,7 @@ his = dict()
 count_recv = 0
 count_send = 0
 readed_config = 0
+failed_count = 0
 
 def save_config():
     info_json = json.dumps(his, cls = MyEncoder, sort_keys = False, indent = 4)
@@ -111,11 +112,13 @@ class MyPlugin(Star):
         global count_recv
         global count_send
         print("recv and send:" , count_recv , count_send)
+        is_failed = 1
         if count_recv == count_send:
             if dc[group_id] <= 0 or event.is_at_or_wake_command:
                 dc[group_id] = random.randint(3,8)
                 provider = self.context.get_using_provider()
                 if provider:
+                    is_failed = 0
                     count_recv = count_recv + 1
                     prompt_empty = " "
                     his_old , his_new = his[group_id].get_all()
@@ -134,4 +137,7 @@ class MyPlugin(Star):
                     save_config()
                     yield event.plain_result("（标记：正常发送开始）" + str(response.completion_text) + "（标记：正常发送结束）") # 发送一条纯文本消息
                     count_send = count_send + 1
-        return
+        if is_failed == 1:
+            global failed_count
+            failed_count = failed_count + 1
+            yield failed_count
