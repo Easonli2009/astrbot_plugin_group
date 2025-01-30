@@ -19,8 +19,8 @@ MAX_HISTORY_COUNT = 5000
 
 class chat_history:
     def __init__(self):
-        self.history = dict()
-        self.history_new = dict()
+        self.history = list()
+        self.history_new = list()
     def new_obj(self, data_dict):
         obj = self
         for attr, val in data_dict.items():
