@@ -90,6 +90,7 @@ def init_func_call():
     from astrbot.core.provider.func_tool_manager import FuncCall
     global func_call_inst
     func_call_inst = FuncCall()
+    print("func_call_inst", func_call_inst.__dict__)
 
 is_inited = False
 
