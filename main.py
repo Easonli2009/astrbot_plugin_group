@@ -127,6 +127,7 @@ class MyPlugin(Star):
             this_id = count_recv
             if count_send != this_id -1:
                 print("Skipped!")
+                count_send = count_send + 1
                 failed_count = failed_count + 1
                 yield failed_count
                 return
