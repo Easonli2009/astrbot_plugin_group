@@ -80,10 +80,27 @@ class MyPlugin(Star):
         super().__init__(context)
         self.config = config
         print(self.config)
+    
+    @filter.command("test")
+    async def test(self, event: AstrMessageEvent):
+        from aiocqhttp import CQHttp
+        if event.get_message_type() == MessageType.GROUP_MESSAGE:
+            group_id = event.message_obj.group_id
+            user_id = event.get_sender_id()
+            platforms = self.context.platform_manager.platform_insts
+            aiocqhttp_client: CQHttp = None
+            for inst in platforms:
+                if inst.meta().name == 'aiocqhttp':
+                    aiocqhttp_client = inst.bot
+                    assert isinstance(aiocqhttp_client, CQHttp)
+            ret = await aiocqhttp_client.api.callaction("get_group_member_list", group_id = group_id, user_id = user_id)
+            print(res)
+            event.stop_event() # 停止事件传播
+            yield 0
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):
-        event.stop_event() # 停止事件传播，疑似有bug
+        event.stop_event() # 停止事件传播
         if readed_config == 0:
             read_config()
         # print("#Debug Message: ")
