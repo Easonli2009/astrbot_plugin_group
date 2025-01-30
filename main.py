@@ -132,6 +132,6 @@ class MyPlugin(Star):
                     his[group_id].add(add_str_new)
                     his[group_id].refresh()
                     save_config()
-                    yield event.plain_result(response.completion_text) # 发送一条纯文本消息
+                    yield event.plain_result("（标记：正常发送开始）" + str(response.completion_text) + "（标记：正常发送结束）") # 发送一条纯文本消息
                     count_send = count_send + 1
         return
