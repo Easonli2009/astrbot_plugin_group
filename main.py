@@ -31,10 +31,10 @@ class chat_history:
     def get_all(self):
         result1 = ""
         for sth in self.history:
-            result1 = result1 + sth
+            result1 = result1 + str(sth)
         result2 = ""
         for sth in self.history_new:
-            result2 = result2 + sth
+            result2 = result2 + str(sth)
         return result1 , result2
     def refresh(self):
         for sth in self.history_new:
