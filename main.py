@@ -74,7 +74,7 @@ def read_config():
             tmp_his[key] = new_value
         his = tmp_his
 
-def get_user_in_group_info(obj, group_id, user_id):
+async def get_user_in_group_info(obj, group_id, user_id):
     from aiocqhttp import CQHttp
     platforms = obj.context.platform_manager.platform_insts
     aiocqhttp_client: CQHttp = None
@@ -82,7 +82,7 @@ def get_user_in_group_info(obj, group_id, user_id):
         if inst.meta().name == 'aiocqhttp':
             aiocqhttp_client = inst.bot
             assert isinstance(aiocqhttp_client, CQHttp)
-    ret = aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
+    ret = await aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
     return ret
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
