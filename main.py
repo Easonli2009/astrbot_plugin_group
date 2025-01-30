@@ -105,9 +105,9 @@ class MyPlugin(Star):
         dc[group_id] = int(dc.get(group_id)) - 1
         add_str = real_time + " ["+str(event.message_obj.sender.nickname) + "("+str(event.message_obj.sender.user_id) + ")]: " + str(event.get_message_outline())
         his[group_id].add(add_str)
-        print("add message:" + add_str)
-        dbg_msg_1 , dbg_msg_2 = his[group_id].get_all()
-        print("all message:" , dbg_msg_1 , dbg_msg_2)
+        # print("add message:" + add_str)
+        # dbg_msg_1 , dbg_msg_2 = his[group_id].get_all()
+        # print("all message:" , dbg_msg_1 , dbg_msg_2)
         print(dc[group_id])
         global count_recv
         global count_send
@@ -138,11 +138,12 @@ class MyPlugin(Star):
             print(response.completion_text) # LLM 返回的结果
             real_time_new = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(int(time.time())))
             add_str_new = real_time_new + " ["+str("草莓鲜奶") + "(id:"+str(514641773) + ")]: " + str(response.completion_text)
-            print("add message self:" + add_str_new)
+            # print("add message self:" + add_str_new)
             his[group_id].add(add_str_new)
             his[group_id].refresh()
             save_config()
             yield event.plain_result(str(response.completion_text)) # 发送一条纯文本消息
-            dc[group_id] = random.randint(3,8)
             count_send = count_send + 1
+            if count_recv == count_send:
+                dc[group_id] = random.randint(3,8)
             
