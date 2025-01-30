@@ -19,8 +19,13 @@ MAX_HISTORY_COUNT = 5000
 
 class chat_history:
     def __init__(self):
-        self.history = []
-        self.history_new = []
+        self.history: dict
+        self.history_new: dict
+    def new_obj(self, data_dict):
+        obj = self()
+        for attr, val in data_dict.items():
+            setattr(obj, attr, val)
+        return obj
     def add(self , sth : str):
         self.history_new.append(sth)
     def get_all(self):
@@ -39,8 +44,8 @@ class chat_history:
             del self.history[0]
 
 
-dc = dict()
-his = dict()
+dc: dict
+his: dict
 count_recv = 0
 count_send = 0
 readed_config = 0
@@ -58,9 +63,12 @@ def read_config():
         file_read = open("group_config.json", "r")
         global his
         his = json.load(file_read)
-        str_dbg_1, str_dbg_2 = his["964746347"].get_all()
-        print("#dbg1:", str_dbg_1)
-        print("#dbg2:", str_dbg_2)
+        tmp_his = []
+        for key, value in his.items():
+            new_value = chat_history()
+            new_value = new_value.new_obj(value)
+            tmp_his[key] = new_value
+        his = tmp_his
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
