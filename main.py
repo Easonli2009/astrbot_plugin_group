@@ -48,7 +48,6 @@ dc = dict()
 his = dict()
 count_recv = 0
 count_send = 0
-readed_config = 0
 failed_count = 0
 
 def save_config():
@@ -85,6 +84,20 @@ def get_user_in_group_info(obj, group_id, user_id):
     ret = aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
     return ret
 
+func_call_inst = None
+
+def init_func_call():
+    from astrbot.core.provider.func_tool_manager import FuncCall
+    global func_call_inst
+    func_call_inst = FuncCall()
+
+is_inited = False
+
+def init_group_plugin():
+    read_config()
+    init_func_call()
+    is_inited = True
+
 @register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
     def __init__(self, context: Context, config: dict):
@@ -96,27 +109,17 @@ class MyPlugin(Star):
     
     @command("test")
     async def test(self, event: AstrMessageEvent):
-        if False:
-            from aiocqhttp import CQHttp
-            if event.get_message_type() == MessageType.GROUP_MESSAGE:
-                group_id = event.message_obj.group_id
-                user_id = event.get_sender_id()
-                platforms = self.context.platform_manager.platform_insts
-                aiocqhttp_client: CQHttp = None
-                for inst in platforms:
-                    if inst.meta().name == 'aiocqhttp':
-                        aiocqhttp_client = inst.bot
-                        assert isinstance(aiocqhttp_client, CQHttp)
-                ret = await aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
-                print(ret)
+        if False or True:
+                from astrbot.core.provider.func_tool_manager import FuncCall
+                func_call_inst = FuncCall()
                 event.stop_event() # 停止事件传播
                 yield 0
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):
         event.stop_event() # 停止事件传播
-        if readed_config == 0:
-            read_config()
+        if is_inited == False:
+            init_group_plugin()
         # print("#Debug Message: ")
         # print(event.message_obj.raw_message) # 打印消息内容
         group_id=event.get_group_id()
@@ -178,7 +181,7 @@ class MyPlugin(Star):
             prom = his_all + "你是一个群聊内的成员，以上是你所在的群聊的聊天记录，你是名字是\"草莓鲜奶\"，User_ID为\"514641773\"，根据新聊天记录回答你要在群聊内发表的言论，旧聊天记录用于获取聊天背景，尤其关注At你的消息。注意：根据id来确定一个人。无需为此回答添加任何额外形容词，无需回答任何推理与思考过程，无需模拟给出的消息格式。"
             sys_prompt = "你是一名中国广东省广州市的18岁女生，对他人自称“小玲”，你的网名叫“草莓鲜奶”，你没有除了QQ以外的其他平台的账号，现在仍在进行学业。你比较喜欢英语，你的数学和物理不是很好。你的性格较为内向、温和、可爱，一次回答不会暴露自己较多的信息，语气一般较为平淡。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你可以适当模仿他人的说话风格。你不能让他人发现你是AI，如果有他人向你询问这一方面的话题，请回避。你的每一次回答都要体现上述要求，请牢记！！！"
             # response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
-            response = await provider.text_chat(prompt = prom , session_id = None , system_prompt = sys_prompt)
+            response = await provider.text_chat(prompt = prom , session_id = None , system_prompt = sys_prompt, func_tool = func_call_inst)
             print(response.completion_text) # LLM 返回的结果
             real_time_new = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(int(time.time())))
             this_msg_self = dict()
