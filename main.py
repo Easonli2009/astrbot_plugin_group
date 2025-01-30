@@ -15,7 +15,7 @@ class MyEncoder(json.JSONEncoder):
              return obj.__dict__
         return super(MyEncoder, self).default(obj)
 
-MAX_HISTORY_COUNT = 5000
+MAX_HISTORY_COUNT = 1000
 
 class chat_history:
     def __init__(self):
@@ -90,7 +90,9 @@ class MyPlugin(Star):
     def __init__(self, context: Context, config: dict):
         super().__init__(context)
         self.config = config
-        print(self.config)
+        print("group_config: ", self.config)
+        MAX_HISTORY_COUNT = self.config["max_history_count"]
+        print("##max = ", MAX_HISTORY_COUNT)
     
     @command("test")
     async def test(self, event: AstrMessageEvent):
