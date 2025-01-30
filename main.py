@@ -63,7 +63,7 @@ def read_config():
         file_read = open("group_config.json", "r")
         global his
         his = json.load(file_read)
-        tmp_his = []
+        tmp_his : dict
         for key, value in his.items():
             print("pair of key & value:")
             print("#key = ", key)
