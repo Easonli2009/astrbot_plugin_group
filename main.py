@@ -93,7 +93,7 @@ class MyPlugin(Star):
                 if inst.meta().name == 'aiocqhttp':
                     aiocqhttp_client = inst.bot
                     assert isinstance(aiocqhttp_client, CQHttp)
-            ret = await aiocqhttp_client.api.call_action("get_group_member_list", group_id = group_id, user_id = user_id)
+            ret = await aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
             print(ret)
             event.stop_event() # 停止事件传播
             yield 0
