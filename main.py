@@ -141,7 +141,7 @@ class MyPlugin(Star):
             this_msg["Nickname"] = tmp_user_info["card"]
         this_msg["Content"] = str(event.get_message_outline())
         his[group_id].add(this_msg)
-        print("add message:", this_msg.__dict__)
+        print("add message:", this_msg)
         # dbg_msg_1 , dbg_msg_2 = his[group_id].get_all()
         # print("all message:" , dbg_msg_1 , dbg_msg_2)
         print(dc[group_id])
@@ -188,7 +188,7 @@ class MyPlugin(Star):
                 this_msg_self["Nickname"] = tmp_user_info["card"]
             this_msg["Content"] = str(response.completion_text)
             his[group_id].add(this_msg_self)
-            print("add message Self:", this_msg_self.__dict__)
+            print("add message Self:", this_msg_self)
             his[group_id].add(this_msg)
             his[group_id].refresh()
             save_config()
