@@ -197,3 +197,4 @@ class MyPlugin(Star):
             if count_recv == count_send:
                 dc[group_id] = random.randint(3,8)
             
+# qwq
