@@ -22,7 +22,7 @@ class chat_history:
         self.history: dict
         self.history_new: dict
     def new_obj(self, data_dict):
-        obj = self()
+        obj = self
         for attr, val in data_dict.items():
             setattr(obj, attr, val)
         return obj
