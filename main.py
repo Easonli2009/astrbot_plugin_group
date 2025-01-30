@@ -74,7 +74,7 @@ def read_config():
             tmp_his[key] = new_value
         his = tmp_his
 
-async def get_user_in_group_info(obj, group_id, user_id):
+def get_user_in_group_info(obj, group_id, user_id):
     from aiocqhttp import CQHttp
     platforms = obj.context.platform_manager.platform_insts
     aiocqhttp_client: CQHttp = None
@@ -82,7 +82,7 @@ async def get_user_in_group_info(obj, group_id, user_id):
         if inst.meta().name == 'aiocqhttp':
             aiocqhttp_client = inst.bot
             assert isinstance(aiocqhttp_client, CQHttp)
-    ret = await aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
+    ret = aiocqhttp_client.api.call_action("get_group_member_info", group_id = group_id, user_id = user_id)
     return ret
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
@@ -136,7 +136,7 @@ class MyPlugin(Star):
         this_msg["Time"] = real_time
         this_msg["User_ID"] = str(event.message_obj.sender.user_id)
         this_msg["Name"] = str(event.message_obj.sender.nickname)
-        tmp_user_info = get_user_in_group_info(obj = self, group_id = event.message_obj.group_id, user_id = event.get_sender_id())
+        tmp_user_info = await get_user_in_group_info(obj = self, group_id = event.message_obj.group_id, user_id = event.get_sender_id())
         if len(tmp_user_info["card"]) > 0:
             this_msg["Nickname"] = tmp_user_info["card"]
         this_msg["Content"] = str(event.get_message_outline())
@@ -183,7 +183,7 @@ class MyPlugin(Star):
             this_msg_self["Time"] = real_time_new
             this_msg_self["User_ID"] = str("514641773")
             this_msg_self["Name"] = str("草莓鲜奶")
-            tmp_user_info = get_user_in_group_info(obj = self, group_id = event.message_obj.group_id, user_id = "514641773")
+            tmp_user_info = await get_user_in_group_info(obj = self, group_id = event.message_obj.group_id, user_id = "514641773")
             if len(tmp_user_info["card"]) > 0:
                 this_msg_self["Nickname"] = tmp_user_info["card"]
             this_msg["Content"] = str(response.completion_text)
