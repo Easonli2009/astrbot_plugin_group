@@ -44,8 +44,8 @@ class chat_history:
             del self.history[0]
 
 
-dc: dict
-his: dict
+dc = dict()
+his = dict()
 count_recv = 0
 count_send = 0
 readed_config = 0
