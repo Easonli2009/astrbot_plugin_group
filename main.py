@@ -96,6 +96,7 @@ is_inited = False
 def init_group_plugin():
     read_config()
     init_func_call()
+    global is_inited
     is_inited = True
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
