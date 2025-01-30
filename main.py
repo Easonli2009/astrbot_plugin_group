@@ -75,9 +75,10 @@ def read_config():
 
 @register("group", "Lyz09", "我的插件", "1.0.5")
 class MyPlugin(Star):
-    def __init__(self, context : Context):
+    def __init__(self, context: Context, config: dict):
         super().__init__(context)
-        # read_config()
+        self.config = config
+        print(self.config)
 
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 注册一个过滤器
     async def on_message(self,event : AstrMessageEvent):

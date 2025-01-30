@@ -1,0 +1,8 @@
+{
+    "max_history_count": {
+        "description": "一个群聊最多记录的历史消息条数",
+        "type": "int",
+        "hint": "推荐不少于1000",
+        "obvious_hint": true
+    }
+}
