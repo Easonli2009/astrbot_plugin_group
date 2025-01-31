@@ -96,6 +96,7 @@ is_inited = False
 
 def init_group_plugin(obj):
     read_config()
+    print("--------------")
     init_func_call(obj)
     global is_inited
     is_inited = True
