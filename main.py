@@ -86,17 +86,17 @@ def get_user_in_group_info(obj, group_id, user_id):
 
 func_call_inst = None
 
-def init_func_call():
+def init_func_call(obj):
     from astrbot.core.provider.func_tool_manager import FuncCall
     global func_call_inst
-    func_call_inst = FuncCall()
+    func_call_inst = obj.context.get_llm_tool_manager()
     print("func_call_inst", func_call_inst.__dict__)
 
 is_inited = False
 
-def init_group_plugin():
+def init_group_plugin(obj):
     read_config()
-    init_func_call()
+    init_func_call(obj)
     global is_inited
     is_inited = True
 
@@ -121,7 +121,7 @@ class MyPlugin(Star):
     async def on_message(self,event : AstrMessageEvent):
         event.stop_event() # 停止事件传播
         if is_inited == False:
-            init_group_plugin()
+            init_group_plugin(self)
         # print("#Debug Message: ")
         # print(event.message_obj.raw_message) # 打印消息内容
         group_id=event.get_group_id()
@@ -168,7 +168,7 @@ class MyPlugin(Star):
         else:
             count_recv = count_recv + 1
             this_id = count_recv
-            if count_send != this_id -1:
+            if count_send != this_id -1 and False:
                 print("Skipped!")
                 count_send = count_send + 1
                 failed_count = failed_count + 1
