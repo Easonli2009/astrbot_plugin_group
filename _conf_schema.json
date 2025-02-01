@@ -19,17 +19,6 @@
                 "description": "聊天引导词",
                 "type": "string",
                 "hint": "位于聊天记录后面的，引导LLM的话语"
-            },
-            "check_config": {
-                "description": "发言时机设置",
-                "type": "object",
-                "items": {
-                    "to_check": {
-                        "description": "检测发言时机方式",
-                        "type": "object",
-                        "options": ["消息个数", "LLM判断"]
-                    }
-                }
             }
         }
     }
