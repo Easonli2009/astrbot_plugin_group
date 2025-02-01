@@ -2,6 +2,7 @@ from astrbot.api.all import *
 import random
 import time
 import json
+import asyncio
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -176,7 +177,7 @@ class MyPlugin(Star):
             #    yield failed_count
             #    return
             while count_send < this_id - 1:
-                await time.sleep(0.1)
+                await asyncio.sleep(0.1)
             prompt_empty = " "
             his_old , his_new = his[group_id].get_all()
             his_all = "以下是旧聊天记录：\n------\n" + his_old + "\n------\n"
