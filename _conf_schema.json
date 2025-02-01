@@ -26,7 +26,8 @@
                 "items": {
                     "to_check": {
                         "description": "检测发言时机方式",
-                        "type": "int",
+                        "type": "string",
+                        "default": "消息个数",
                         "options": ["消息个数", "LLM判断"]
                     }
                 }
