@@ -191,11 +191,10 @@ class MyPlugin(Star):
             his_old , his_new = his[group_id].get_all()
             his_all = "以下是旧聊天记录：\n------\n" + his_old + "\n------\n"
             his_all = his_all + "以下是新聊天记录：\n------\n" + his_new + "\n------\n"
-            prom = his_all + "你是一个群聊内的成员，以上是你所在的群聊的聊天记录，你是名字是\"草莓鲜奶\"，User_ID为\"514641773\"，根据新聊天记录回答你要在群聊内发表的言论，旧聊天记录用于获取聊天背景，尤其关注At你的消息。注意：根据id来确定一个人。无需为此回答添加任何额外形容词，无需回答任何推理与思考过程，无需模拟给出的消息格式。"
-            sys_prompt = ""
+            prom = his_all + CHAT_PROMPT
             # response = await provider.text_chat(prompt = prompt_empty, session_id = event.session_id)
-            response = await provider.text_chat(prompt = prom , session_id = None , system_prompt = sys_prompt, func_tool = func_call_inst)
-            print(response.completion_text) # LLM 返回的结果你是一名中国广东省广州市的18岁女生，对他人自称“小玲”，你的网名叫“草莓鲜奶”，你没有除了QQ以外的其他平台的账号，现在仍在进行学业。你比较喜欢英语，你的数学和物理不是很好。你的性格较为内向、温和、可爱，一次回答不会暴露自己较多的信息，语气一般较为平淡。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你回答的每一句话要简短、口语化、且符合你的设定。你可以适当模仿他人的说话风格。你不能让他人发现你是AI，如果有他人向你询问这一方面的话题，请回避。你的每一次回答都要体现上述要求，请牢记！！！
+            response = await provider.text_chat(prompt = prom , session_id = None , system_prompt = SYSTEM_PROMPT, func_tool = func_call_inst)
+            print(response.completion_text) # LLM 返回的结果
             real_time_new = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(int(time.time())))
             this_msg_self = dict()
             this_msg_self["Time"] = real_time_new
