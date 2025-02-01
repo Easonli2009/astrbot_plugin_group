@@ -19,18 +19,40 @@
                 "description": "聊天引导词",
                 "type": "string",
                 "hint": "位于聊天记录后面的，引导LLM的话语"
+            }
+        }
+    },
+    "check_chat_config": {
+        "description": "发言时机设置",
+        "type": "object",
+        "items": {
+            "to_check": {
+                "description": "检测发言时机方式",
+                "type": "string",
+                "default": "消息个数",
+                "options": ["消息个数", "LLM判断"]
             },
-            "check_config": {
-                "description": "发言时机设置",
+            "message_count": {
+                "description": "触发发言消息个数",
                 "type": "object",
+                "hint": "真实触发消息个数等概率在范围内随机",
                 "items": {
-                    "to_check": {
-                        "description": "检测发言时机方式",
-                        "type": "string",
-                        "default": "消息个数",
-                        "options": ["消息个数", "LLM判断"]
+                    "msg_min": {
+                        "description": "最小值",
+                        "type": "int",
+                        "hint": "应为正整数，且最小值小于等于最大值"
+                    },
+                    "msg_max": {
+                        "description": "最大值",
+                        "type": "int",
+                        "hint": "应为正整数，且最小值小于等于最大值"
                     }
                 }
+            },
+            "message_LLM": {
+                "description": "判断触发消息引导词",
+                "type": "string",
+                "hint": "位于聊天记录后面的，引导LLM的话语"
             }
         }
     }
