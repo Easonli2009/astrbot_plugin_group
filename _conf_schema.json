@@ -2,7 +2,35 @@
     "max_history_count": {
         "description": "一个群聊最多记录的历史消息条数",
         "type": "int",
+        "default": 1000,
         "hint": "推荐不少于1000",
         "obvious_hint": true
+    },
+    "prompt_config": {
+        "description": "LLM引导词设置",
+        "type": "object",
+        "items": {
+            "system_prompt": {
+                "description": "系统引导词",
+                "type": "string",
+                "hint": "等同于Astrbot中的人格"
+            },
+            "chat_prompt": {
+                "description": "聊天引导词",
+                "type": "string",
+                "hint": "位于聊天记录后面的，引导LLM的话语"
+            },
+            "check_config": {
+                "description": "发言时机设置",
+                "type": "object",
+                "items": {
+                    "to_check": {
+                        "description": "检测发言时机方式",
+                        "type": "object",
+                        "options": ["消息个数", "LLM判断"]
+                    }
+                }
+            }
+        }
     }
 }
