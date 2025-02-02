@@ -23,7 +23,7 @@
         }
     },
     "check_chat_config": {
-        "description": "发言时机设置",
+        "description": "主动发言时机设置",
         "type": "object",
         "items": {
             "to_check": {
@@ -32,10 +32,18 @@
                 "default": "消息个数",
                 "options": ["消息个数", "LLM判断"]
             },
+            "min_gap_time": {
+                "description": "最小发言间隔（单位为秒）",
+                "type": "int",
+                "default": 3,
+                "hint": "若设置过小则会导致请求数过多！",
+                "obvious_hint": true
+            },
             "message_count": {
-                "description": "触发发言消息个数",
+                "description": "触发发言消息个数设置",
                 "type": "object",
                 "hint": "真实触发消息个数等概率在范围内随机",
+                "obvious_hint": true,
                 "items": {
                     "msg_min": {
                         "description": "最小值",
