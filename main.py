@@ -104,7 +104,7 @@ def init_group_plugin(obj):
     global is_inited
     is_inited = True
 
-@register("group", "Lyz09", "我的插件", "1.0.5")
+@register("group_increase", "Lyz09", "增强群聊内BOT对话功能，消息平台仅支持aiocqhttp，对于网页及私聊内容无效！\n支持记录群聊内消息记录及新旧消息分离。支持基于消息个数及LLM判断的主动回复，以及被动回复（at）两种发言方式。", "1.1.0")
 class MyPlugin(Star):
     def __init__(self, context: Context, config: dict):
         super().__init__(context)
