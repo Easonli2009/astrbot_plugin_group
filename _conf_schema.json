@@ -13,8 +13,8 @@
             "system_prompt": {
                 "description": "系统引导词",
                 "type": "string",
-                "default": "你是一个热心的群聊内的机器人。",
-                "hint": "等同于Astrbot中的人格"
+                "default": "你是一个热心的群聊内的机器人。你的QQ昵称叫\"{Self.qq_nickname}\"，你的QQ号码为\"{Self.qq_user_id}\"",
+                "hint": "等同于Astrbot中的人格（大括号内的内容请勿更改）"
             },
             "chat_prompt": {
                 "description": "聊天引导词",
@@ -29,8 +29,9 @@
         "type": "object",
         "items": {
             "enable": {
-                "description": "是否启用主动发言",
-                "type": "bool"
+                "description": "启用主动发言",
+                "type": "bool",
+                "default": false
             },
             "to_check": {
                 "description": "检测发言时机方式",
