@@ -13,19 +13,26 @@
             "system_prompt": {
                 "description": "系统引导词",
                 "type": "string",
+                "default": "你是一个热心的群聊内的机器人。",
                 "hint": "等同于Astrbot中的人格"
             },
             "chat_prompt": {
                 "description": "聊天引导词",
                 "type": "string",
+                "default": "以上是你所在的群聊内的历史聊天记录，根据新聊天记录回答你要在该群聊内发表的消息，旧聊天记录用于获取聊天背景。\n注意：尤其关注at你的消息；无需模拟给出的消息格式；无需为消息添加任何额外修饰。",
                 "hint": "位于聊天记录后面的，引导LLM的话语"
             }
         }
     },
-    "check_chat_config": {
-        "description": "主动发言时机设置",
+    "active_chat": {
+        "description": "主动发言设置",
         "type": "object",
         "items": {
+            "enable": {
+                "description": "是否启用主动发言",
+                "type": "bool",
+                "default": false
+            },
             "to_check": {
                 "description": "检测发言时机方式",
                 "type": "string",
