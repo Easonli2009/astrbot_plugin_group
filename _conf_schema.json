@@ -30,8 +30,7 @@
         "items": {
             "enable": {
                 "description": "是否启用主动发言",
-                "type": "bool",
-                "default": false
+                "type": "bool"
             },
             "to_check": {
                 "description": "检测发言时机方式",
