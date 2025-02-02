@@ -203,10 +203,9 @@ class MyPlugin(Star):
             tmp_user_info = await get_user_in_group_info(obj = self, group_id = event.message_obj.group_id, user_id = "514641773")
             if len(tmp_user_info["card"]) > 0:
                 this_msg_self["Nickname"] = tmp_user_info["card"]
-            this_msg["Content"] = str(response.completion_text)
+            this_msg_self["Content"] = str(response.completion_text)
             his[group_id].add(this_msg_self)
             print("add message Self:", this_msg_self)
-            his[group_id].add(this_msg)
             his[group_id].refresh()
             save_config()
             yield event.plain_result(str(response.completion_text)) # 发送一条纯文本消息

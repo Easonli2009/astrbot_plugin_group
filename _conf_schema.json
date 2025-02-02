@@ -43,7 +43,6 @@
                 "description": "触发发言消息个数设置",
                 "type": "object",
                 "hint": "真实触发消息个数等概率在范围内随机",
-                "obvious_hint": true,
                 "items": {
                     "msg_min": {
                         "description": "最小值",
