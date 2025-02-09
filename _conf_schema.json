@@ -3,7 +3,7 @@
         "description": "一个群聊最多记录的历史消息条数",
         "type": "int",
         "default": 1000,
-        "hint": "推荐不少于1000",
+        "hint": "推荐不多于100，否则容易导致LLM注意力涣散",
         "obvious_hint": true
     },
     "prompt_config": {
