@@ -49,7 +49,7 @@ class chat_history:
 
 INTRODUCTION_OUT = "增强群聊内BOT对话功能，消息平台仅支持aiocqhttp，对于网页及私聊内容无效！\n支持记录群聊内消息记录及新旧消息分离。支持基于消息个数及LLM判断的主动回复，以及被动回复（at）两种发言方式。"
 VERSION_SHOW = "1.1.0"
-PLUGIN_GROUP_ID = "astrbot_plugin_gourp_increase"
+PLUGIN_GROUP_ID = "gourp_increase"
 MESSAGE_FILE_PATH = f"data/{PLUGIN_GROUP_ID}_chat_history.json"
 MAX_HISTORY_COUNT : int
 SYSTEM_PROMPT : str
@@ -111,7 +111,7 @@ def read_constant(config :dict):
     CHAT_PROMPT = config["prompt_config"]["chat_prompt"]
     logger.debug("    {CHAT_PROMPT}.SYSTEM_PROMPT = {CHAT_PROMPT}")
 
-@register(PLUGIN_GROUP_ID, "Lyz09", INTRODUCTION_OUT, VERSION_SHOW)
+@register(PLUGIN_GROUP_ID, "StrawberryMilk", INTRODUCTION_OUT, VERSION_SHOW)
 class MyPlugin(Star):
     def __init__(self, context: Context, config: dict):
         super().__init__(context)
