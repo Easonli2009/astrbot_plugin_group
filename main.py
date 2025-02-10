@@ -130,8 +130,7 @@ class MyPlugin(Star):
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
     async def on_message(self,event : AstrMessageEvent): # 令所有消息均唤醒，方便后续处理
         logger.debug("ok,a valid message!")
-        event.plain_result(f"收到了：\"{event.get_message_str()}\" 的请求")
+        logger.debug(f"收到了：\"{event.get_message_str()}\" 的请求")
         event.stop_event() # 停止传播
         logger.debug("尝试停止事件传播")
-        logger.debug(f"可传播属性：{event.is_stopped()}")
         return
