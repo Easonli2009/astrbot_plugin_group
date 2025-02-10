@@ -125,14 +125,13 @@ class MyPlugin(Star):
         if event.get_platform_name() != "aiocqhttp" or event.get_message_type() != MessageType.GROUP_MESSAGE: # 仅 aiocqhttp 消息接收器 & 仅 群聊 消息
             logger.debug("not a valid message!")
             return
-        logger.debug("ok,a valid message!")
-        event.plain_result(f"收到了：\"{llm_request}\" 的请求")
-        event.stop_event() # 停止传播
-        logger.debug("尝试停止事件传播")
-        logger.debug(f"可传播属性：{event.is_stopped()}")
         return
     @platform_adapter_type(PlatformAdapterType.AIOCQHTTP) # 仅 aiocqhttp 消息接收器
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
     async def on_message(self,event : AstrMessageEvent): # 令所有消息均唤醒，方便后续处理
-        logger.debug(f"原 is_wake = {event.is_wake}")
-        # event.is_wake = True
+        logger.debug("ok,a valid message!")
+        event.plain_result(f"收到了：\"{event.get_message_str()}\" 的请求")
+        event.stop_event() # 停止传播
+        logger.debug("尝试停止事件传播")
+        logger.debug(f"可传播属性：{event.is_stopped()}")
+        return
