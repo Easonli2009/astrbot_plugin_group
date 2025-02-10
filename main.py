@@ -63,18 +63,18 @@ failed_count = 0
 
 # 保存消息
 def save_config():
-    logger.info("插件 {PLUGIN_GROUP_ID} 保存消息文件")
+    logger.info("保存消息文件")
     info_json = json.dumps(his, cls = MyEncoder, sort_keys = False, indent = 4)
     file_save = open(MESSAGE_FILE_PATH, "w")
     file_save.write(info_json)
 
 # 读取消息
 def read_config():
-    logger.info("插件 {PLUGIN_GROUP_ID} 读取消息文件")
+    logger.info("读取消息文件")
     global readed_config
     readed_config = 1
     if os.path.exists(MESSAGE_FILE_PATH) == True:
-        logger.info("插件 {PLUGIN_GROUP_ID} 已找到消息文件，文件路径为：{MESSAGE_FILE_PATH}")
+        logger.info("已找到消息文件，文件路径为：{MESSAGE_FILE_PATH}")
         file_read = open(MESSAGE_FILE_PATH, "r")
         global his
         his = json.load(file_read)
@@ -85,7 +85,7 @@ def read_config():
             tmp_his[key] = new_value
         his = tmp_his
     else:
-        logger.info("插件 {PLUGIN_GROUP_ID} 未找到消息文件")
+        logger.info("未找到消息文件")
 
 # 获取群员信息
 def get_user_in_group_info(obj, group_id, user_id):
@@ -101,15 +101,15 @@ def get_user_in_group_info(obj, group_id, user_id):
 
 # 读取用户面板配置常量
 def read_constant(config :dict):
-    logger.info("插件 {PLUGIN_GROUP_ID} 读取用户面板配置")
-    logger.debug("    all config = {config}")
+    logger.info("读取用户面板配置")
+    logger.debug(f"    all config = {config}")
     global MAX_HISTORY_COUNT, SYSTEM_PROMPT, CHAT_PROMPT
     MAX_HISTORY_COUNT = config["max_history_count"]
-    logger.debug("    {PLUGIN_GROUP_ID}.MAX_HISTORY_COUNT = {MAX_HISTORY_COUNT}")
+    logger.debug(f"    {PLUGIN_GROUP_ID}.MAX_HISTORY_COUNT = {MAX_HISTORY_COUNT}")
     SYSTEM_PROMPT = config["prompt_config"]["system_prompt"]
-    logger.debug("    {PLUGIN_GROUP_ID}.SYSTEM_PROMPT = {SYSTEM_PROMPT}")
+    logger.debug(f"    {PLUGIN_GROUP_ID}.SYSTEM_PROMPT = {SYSTEM_PROMPT}")
     CHAT_PROMPT = config["prompt_config"]["chat_prompt"]
-    logger.debug("    {CHAT_PROMPT}.SYSTEM_PROMPT = {CHAT_PROMPT}")
+    logger.debug(f"    {CHAT_PROMPT}.SYSTEM_PROMPT = {CHAT_PROMPT}")
 
 @register(PLUGIN_GROUP_ID, "StrawberryMilk", INTRODUCTION_OUT, VERSION_SHOW)
 class MyPlugin(Star):
@@ -121,15 +121,13 @@ class MyPlugin(Star):
 
     @filter.on_llm_request(priority = -9223372036854775808) # 优先级最低，最后处理消息
     async def process_message(self, event: AstrMessageEvent, llm_request: ProviderRequest):# 处理消息函数
-        dbg1 = event.get_platform_name()
-        dbg2 = event.get_message_type()
-        logger.debug("message.platform = {dbg1} & type = {dbg2}")
+        logger.debug(f"message.platform = {event.get_platform_name()} & type = {event.get_message_type()}")
         if event.get_platform_name() != "aiocqhttp" or event.get_message_type() != MessageType.GROUP_MESSAGE: # 仅 aiocqhttp 消息接收器 & 仅 群聊 消息
             return
-        event.plain_result("收到了：\"{llm_request}\" 的请求")
+        event.plain_result(f"收到了：\"{llm_request}\" 的请求")
         event.stop_event() # 停止传播
     @platform_adapter_type(PlatformAdapterType.AIOCQHTTP) # 仅 aiocqhttp 消息接收器
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
     async def on_message(self,event : AstrMessageEvent): # 令所有消息均唤醒，方便后续处理
-        logger.debug("原 is_wake = {event.is_wake}")
+        logger.debug(f"原 is_wake = {event.is_wake}")
         event.is_wake = True
