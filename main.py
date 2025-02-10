@@ -121,6 +121,9 @@ class MyPlugin(Star):
 
     @filter.on_llm_request(priority = -9223372036854775808) # 优先级最低，最后处理消息
     async def process_message(self, event: AstrMessageEvent, llm_request: ProviderRequest):# 处理消息函数
+        dbg1 = event.get_platform_name()
+        dbg2 = event.get_message_type()
+        logger.debug("message.platform = {dbg1} & type = {dbg2}")
         if event.get_platform_name() != "aiocqhttp" or event.get_message_type() != MessageType.GROUP_MESSAGE: # 仅 aiocqhttp 消息接收器 & 仅 群聊 消息
             return
         event.plain_result("收到了：\"{llm_request}\" 的请求")
@@ -128,4 +131,5 @@ class MyPlugin(Star):
     @platform_adapter_type(PlatformAdapterType.AIOCQHTTP) # 仅 aiocqhttp 消息接收器
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
     async def on_message(self,event : AstrMessageEvent): # 令所有消息均唤醒，方便后续处理
+        logger.debug("原 is_wake = {event.is_wake}")
         event.is_wake = True
