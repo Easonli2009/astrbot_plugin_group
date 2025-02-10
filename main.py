@@ -135,4 +135,4 @@ class MyPlugin(Star):
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
     async def on_message(self,event : AstrMessageEvent): # 令所有消息均唤醒，方便后续处理
         logger.debug(f"原 is_wake = {event.is_wake}")
-        event.is_wake = True
+        # event.is_wake = True
