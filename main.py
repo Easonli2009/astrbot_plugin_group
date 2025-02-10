@@ -123,7 +123,7 @@ class MyPlugin(Star):
     async def process_message(self, event: AstrMessageEvent, llm_request: ProviderRequest):# 处理消息函数
         if event.get_platform_name() != "aiocqhttp" or event.get_message_type() != MessageType.GROUP_MESSAGE: # 仅 aiocqhttp 消息接收器 & 仅 群聊 消息
             return
-        event.event.plain_result("收到了：\"{llm_request}\" 的请求")
+        event.plain_result("收到了：\"{llm_request}\" 的请求")
         event.stop_event() # 停止传播
     @platform_adapter_type(PlatformAdapterType.AIOCQHTTP) # 仅 aiocqhttp 消息接收器
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
