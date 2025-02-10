@@ -129,6 +129,7 @@ class MyPlugin(Star):
         event.plain_result(f"收到了：\"{llm_request}\" 的请求")
         event.stop_event() # 停止传播
         logger.debug("尝试停止事件传播")
+        logger.debug(f"可传播属性：{event.is_stopped()}")
         return
     @platform_adapter_type(PlatformAdapterType.AIOCQHTTP) # 仅 aiocqhttp 消息接收器
     @event_message_type(EventMessageType.GROUP_MESSAGE) # 仅 群聊 消息
