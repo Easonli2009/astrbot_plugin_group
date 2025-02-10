@@ -123,6 +123,7 @@ class MyPlugin(Star):
     async def process_message(self, event: AstrMessageEvent, llm_request: ProviderRequest):# 处理消息函数
         logger.debug(f"message.platform = {event.get_platform_name()} & type = {event.get_message_type()}")
         if event.get_platform_name() != "aiocqhttp" or event.get_message_type() != MessageType.GROUP_MESSAGE: # 仅 aiocqhttp 消息接收器 & 仅 群聊 消息
+            logger.debug("not a valid message!")
             return
         event.plain_result(f"收到了：\"{llm_request}\" 的请求")
         event.stop_event() # 停止传播
